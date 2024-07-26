@@ -85,7 +85,31 @@ export const petController = () => {
       await prisma.$disconnect();
     }
   };
-  const updatePetById = async (_req, res, next) => {};
+
+  const updatePetById = async (req, res, next) => {
+    const { id } = req.params;
+    const petId = Number(id);
+    const newPetData = req.body;
+
+    try {
+      const pet = await prisma.pet.update({
+        where: {
+          id: petId,
+        },
+        data: newPetData,
+      });
+
+      const responseFormat = {
+        data: pet,
+        message: "Pet updated successfully",
+      };
+      return res.status(200).json(responseFormat);
+    } catch (err) {
+      next(err);
+    } finally {
+      await prisma.$disconnect();
+    }
+  };
 
   return {
     getPets,

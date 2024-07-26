@@ -3,10 +3,15 @@ import { petController } from "../controllers/petController.js";
 
 export const petRoutes = () => {
   const petRouter = Router();
-  const { getPets, addPet, getPetById, deletePetById } = petController();
+  const { getPets, addPet, getPetById, deletePetById, updatePetById } =
+    petController();
 
   petRouter.route("/pets").get(getPets).post(addPet);
 
-  petRouter.route("/pets/:id").get(getPetById).delete(deletePetById);
+  petRouter
+    .route("/pets/:id")
+    .get(getPetById)
+    .delete(deletePetById)
+    .patch(updatePetById);
   return petRouter;
 };
