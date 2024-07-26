@@ -13,11 +13,36 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Pet {
+  id      Int    @id @default(autoincrement())
+  name    String @db.VarChar(40)
+  species String @db.VarChar(40)
+  breed   String @db.VarChar(40)
+  age     Int
+  ownerId Int
+  owner   Owner? @relation(fields: [ownerId], references: [id])
+}
+
+model Owner {
+  id       Int    @id @default(autoincrement())
+  name     String @db.VarChar(40)
+  lastName String @db.VarChar(40)
+  email    String @unique
+  pets     Pet[]
+}
+
 model Users {
   id        Int      @id @default(autoincrement())
   name      String
-  lastName  String
   email     String   @unique
   password  String
+  role      Role     @default(USER)
   createdAt DateTime @default(now())
+}
+
+enum Role {
+  USER
+  ADMIN
+  RECEPTIONIST
+  VET
 }
