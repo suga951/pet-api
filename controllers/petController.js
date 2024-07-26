@@ -45,7 +45,7 @@ export const petController = () => {
   };
   const getPetById = async (req, res, next) => {
     const { id } = req.params;
-    const petId = parseInt(id);
+    const petId = Number(id);
 
     try {
       const pet = await prisma.pet.findUnique({
@@ -64,7 +64,27 @@ export const petController = () => {
       await prisma.$disconnect();
     }
   };
-  const deletePetById = async (_req, res, next) => {};
+  const deletePetById = async (req, res, next) => {
+    const { id } = req.params;
+    const petId = Number(id);
+
+    try {
+      const pet = await prisma.pet.delete({
+        where: {
+          id: petId,
+        },
+      });
+      const responseFormat = {
+        data: pet,
+        message: "Pet deleted successfully",
+      };
+      return res.status(200).json(responseFormat);
+    } catch (err) {
+      next(err);
+    } finally {
+      await prisma.$disconnect();
+    }
+  };
   const updatePetById = async (_req, res, next) => {};
 
   return {
