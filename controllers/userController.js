@@ -1,10 +1,31 @@
 import { PrismaClient } from "@prisma/client";
 import httpStatus from "../helpers/httpStatus.js";
+import { encrypt, validate } from "../utils/bcrypt.js";
 
 const prisma = new PrismaClient();
 
 export const userController = () => {
-  const register = async (_req, res, next) => {};
+  const register = async (req, res, next) => {
+    const newUser = req.body;
+    const hashedPassword = await encrypt(newUser.password);
+    newUser.password = hashedPassword;
+
+    try {
+      const createdUser = await prisma.users.create({
+        data: newUser,
+      });
+
+      const responseFormat = {
+        data: createdUser,
+        message: "User created successfully",
+      };
+      return res.status(201).json(responseFormat);
+    } catch (err) {
+      next(err);
+    } finally {
+      await prisma.$disconnect();
+    }
+  };
   const login = async (_req, res, next) => {};
   const profile = async (req, res, next) => {
     const { id } = req.params;
