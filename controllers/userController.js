@@ -26,7 +26,39 @@ export const userController = () => {
       await prisma.$disconnect();
     }
   };
-  const login = async (_req, res, next) => {};
+  const login = async (req, res, next) => {
+    const { email, password } = req.body;
+
+    try {
+      const user = await prisma.users.findUnique({
+        where: {
+          email,
+        },
+      });
+
+      if (!user) {
+        return res.status(httpStatus.NOT_FOUND).json({
+          error: "User not found",
+        });
+      }
+      const passwordValid = await validate(password, user.password);
+
+      if (!passwordValid) {
+        return res.status(httpStatus.UNAUTHORIZED).json({
+          error: "Wrong password",
+        });
+      }
+
+      ///TODO: JWT
+      return res.status(httpStatus.OK).json({
+        message: "Login successful",
+      });
+    } catch (err) {
+      next(err);
+    } finally {
+      await prisma.$disconnect();
+    }
+  };
   const profile = async (req, res, next) => {
     const { id } = req.params;
     const userId = Number(id);
