@@ -7,14 +7,9 @@ export const userRouter = () => {
 
   userRouter.route("/register").get(register);
   userRouter.route("/login").post(login);
-  userRouter.route("/profile").get(profile);
+  userRouter.route("/profile/:id").get(profile);
+
+  return userRouter;
 };
 
-// const userRouter = Router();
-// const { register, profile, login } = userController();
-//
-// // userRouter.get("/api/register", register);
-// // userRouter.post("/api/login", login);
-// userRouter.get("/profile", profile);
-//
-// export default userRouter;
+export default userRouter;
