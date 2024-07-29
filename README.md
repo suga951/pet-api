@@ -94,16 +94,15 @@ This API uses token-based authentication. To authenticate, you must include an `
 
 #### Response Body
 
-````json
 ```json
-  {
-	  "name": "string",
-	  "species": "string",
-	  "breed": "string",
-	  "age": "number",
-    "ownerId": "number"
-  }
-````
+{
+  "name": "string",
+  "species": "string",
+  "breed": "string",
+  "age": "number",
+  "ownerId": "number"
+}
+```
 
 ### Delete Pet
 
