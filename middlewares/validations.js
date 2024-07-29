@@ -1,5 +1,3 @@
-import { query } from "express";
-
 export const schemaValidator = (schema) => async (req, res, next) => {
   const { error } = schema.validate(
     {
