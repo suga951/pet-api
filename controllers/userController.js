@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import httpStatus from "../helpers/httpStatus.js";
+import { generateToken, verifyToken } from "../utils/tokenManagement.js";
 import { encrypt, validate } from "../utils/bcrypt.js";
 
 const prisma = new PrismaClient();
@@ -48,10 +49,16 @@ export const userController = () => {
           error: "Wrong password",
         });
       }
-
-      ///TODO: JWT
+      const token = generateToken({ data: { email, role: user.role } });
+      const refreshToken = generateToken({
+        data: { email, role: user.role },
+        isRefresh: true,
+        expiresIn: "7d",
+      });
       return res.status(httpStatus.OK).json({
-        message: "Login successful",
+        success: true,
+        token,
+        refreshToken,
       });
     } catch (err) {
       next(err);
@@ -59,6 +66,25 @@ export const userController = () => {
       await prisma.$disconnect();
     }
   };
+
+  const refreshToken = async (req, res, next) => {
+    const { refreshToken } = req.body;
+
+    try {
+      const { role, email } = verifyToken(refreshToken, true);
+      const token = generateToken({
+        data: { email, role, message: "Token refreshed successfully" },
+      });
+
+      return res.status(httpStatus.OK).json({
+        success: true,
+        token,
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
   const profile = async (req, res, next) => {
     const { id } = req.params;
     const userId = Number(id);
@@ -88,5 +114,6 @@ export const userController = () => {
     register,
     login,
     profile,
+    refreshToken,
   };
 };
