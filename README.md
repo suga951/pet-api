@@ -1,4 +1,4 @@
-# Pet Clinic API Documentation
+# Pet Management API Documentation
 
 ## Introduction
 
@@ -11,4 +11,34 @@ This URL is the root from which all endpoint paths will branch off. Make sure to
 
 ## Authentication
 
-This API uses token-based authentication. To authenticate, you must include an `Authorization` header in the request with the token value provided by the /login endpoint.
+This API uses token-based authentication. To authenticate, you must include an `Authorization` header in the request with the token provided by the /login endpoint.
+
+## Endpoints
+
+### Create pet
+
+-**Method**: POST -**Endpoint**: `/pets` -**Description**: Create a new pet.
+
+#### Request Body
+
+```json
+{
+  "name": "string",
+  "species": "string",
+  "breed": "string",
+  "age": "number",
+  "owner_id": "number"
+}
+```
+
+#### Response Body
+
+```json
+{
+  "id":"number",
+  "name":"string",
+  "species":"string",
+  "age":"number",
+  "owner_id":"number
+}
+```
