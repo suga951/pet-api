@@ -9,3 +9,11 @@ export const petSchema = Joi.object({
     ownerId: Joi.number().required(),
   }),
 });
+
+export const petIdSchema = Joi.object({
+  params: Joi.object({
+    id: Joi.string()
+      .pattern(/^[0-9]+$/, "Must be a number.")
+      .required(),
+  }),
+});
