@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 
 export const generateToken = ({
   data,
-  expiresIn = "10s",
+  expiresIn = "40s",
   isRefresh = false,
 }) => {
   const secretKey = isRefresh
