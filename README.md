@@ -53,7 +53,7 @@ This API uses token-based authentication. To authenticate, you must include an `
 
 #### Path Parameters
 
-- **`id`**:string(required) - The id of the pet.
+- **`id`**:string(required) - The ID of the pet.
 
 #### Response Body
 
@@ -70,3 +70,47 @@ This API uses token-based authentication. To authenticate, you must include an `
   "message": "Pet retrieved successfully"
 }
 ```
+
+### Update Pet
+
+- **Method**:PATCH
+- **Endpoint**: `/pets/{id}`
+- **Description**: Update an existing pet by ID.
+
+#### Path Parameters
+
+- **`id`**:string(required) - The ID of the pet.
+
+#### Request Body
+
+```json
+{
+  "name": "string",
+  "species": "string",
+  "breed": "string",
+  "age": "number"
+}
+```
+
+#### Response Body
+
+````json
+```json
+  {
+	  "name": "string",
+	  "species": "string",
+	  "breed": "string",
+	  "age": "number",
+    "ownerId": "number"
+  }
+````
+
+### Delete Pet
+
+- **Method**: DELETE
+- **Endpoint**: `/pets/{id}`
+- **Description**: Delete a pet by ID.
+
+#### Path Parameters
+
+- **`id`**:string(required) - The ID of the pet.
