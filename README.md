@@ -44,3 +44,29 @@ This API uses token-based authentication. To authenticate, you must include an `
   "owner_id": "number"
 }
 ```
+
+### Get pet by ID
+
+- **Method**: GET
+- **Endpoint**: `/pets/{id}`
+- **Description**: Retrieve a pet by ID.
+
+#### Path Parameters
+
+- **`id`**:string(required) - The id of the pet.
+
+#### Response Body
+
+```json
+{
+  "data": {
+    "id": "number",
+    "name": "string",
+    "species": "string",
+    "breed": "string",
+    "age": "number",
+    "ownerId": "number"
+  },
+  "message": "Pet retrieved successfully"
+}
+```
