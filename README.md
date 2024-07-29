@@ -17,7 +17,9 @@ This API uses token-based authentication. To authenticate, you must include an `
 
 ### Create pet
 
--**Method**: POST -**Endpoint**: `/pets` -**Description**: Create a new pet.
+- **Method**: POST
+- **Endpoint**: `/pets`
+- **Description**: Create a new pet.
 
 #### Request Body
 
@@ -35,10 +37,10 @@ This API uses token-based authentication. To authenticate, you must include an `
 
 ```json
 {
-  "id":"number",
-  "name":"string",
-  "species":"string",
-  "age":"number",
-  "owner_id":"number
+  "id": "number",
+  "name": "string",
+  "species": "string",
+  "age": "number",
+  "owner_id": "number"
 }
 ```
